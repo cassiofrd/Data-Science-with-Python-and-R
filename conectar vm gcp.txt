@@ -1,6 +1,0 @@
-#para conectar à instância no shell do gcp é só colocar
-gcloud compute ssh --zone southamerica-east1-a --project dsa-gcp-289019 vm-teste1
-#comando para transferir um arquivo do google cloud storage para uma pasta da máquina virtual
-gsutil -m cp -r gs://cassio-intervalo/redes_neurais_keras.py /home/cassiofrd/scripts
-#comando para executar um arquivo python (dado que eu dei início ao programa no diretório em que está o script)
-python3 redes_neurais_keras.py
