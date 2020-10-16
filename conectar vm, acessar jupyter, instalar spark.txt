@@ -1,0 +1,27 @@
+#para conectar à instância no shell do gcp é só colocar
+gcloud compute ssh --zone <zona_que_eu_quero> --project <nome_projeto> <nome_vm>
+#mas é possível acessar o shell também clicando no ssh que aparece ao lado da vm
+
+#comando para transferir um arquivo do google cloud storage para uma pasta da máquina virtual
+gsutil -m cp -r gs://<intervalo_no_qual_esta_arquivo>/<nome_no_arquivo>.py <diretorio_na_vm_no_qual_quero_salvar>
+
+#comando para executar um arquivo python (dado que eu dei início ao programa no diretório em que está o script)
+#sempre tenho que baixar o arquivo para a máquina, caso contrário não há como manipular
+#não tem como fazer as operações sem baixar do google cloud storage
+python3 <nome_no_arquivo>.py
+
+#para instalar o spark em uma vm (tem erro apenas no endereço para baixar o spark, o resto funciona)
+https://computingforgeeks.com/how-to-install-apache-spark-on-ubuntu-debian/
+
+#para instalar o python e o pyspark funcionar (não apenas o spark com scala)
+https://www.roseindia.net/bigdata/pyspark/pyspark-line-45-python-command-not-found.shtml
+
+#após fazer todas as configurações site abaixo:
+https://towardsdatascience.com/running-jupyter-notebook-in-google-cloud-platform-in-15-min-61e16da34d52
+#vamos acessar a vm e dar início ao jupyter digitando o código abaixo no shell
+jupyter-notebook --no-browser --port=<PORT-NUMBER>
+#ai eu digito o código abaixo em um navegador que eu estiver utilizando
+http://<External Static IP Address>:<Port Number>
+#vai aparecer o password que é o está explícito na http que aparece na sua máquina virutal quando você acessa o jupyter
+#<codigo_gigantesco>
+http://<nome_maquina_virtual>:<PORT-NUMBER>/?token=<codigo_gigantesco>
