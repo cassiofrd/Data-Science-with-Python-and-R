@@ -47,5 +47,5 @@ pickle.dump(regressor, open(filename, 'wb'))
  
 # load the model from disk
 loaded_model = pickle.load(open(filename, 'rb'))
-result = loaded_model.score(X_test, y_test)
+result = loaded_model.predict(X_test)
 print(result)
