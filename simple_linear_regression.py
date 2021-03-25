@@ -48,4 +48,5 @@ pickle.dump(regressor, open(filename, 'wb'))
 # load the model from disk
 loaded_model = pickle.load(open(filename, 'rb'))
 result = loaded_model.predict(X_test)
-print(result)
+np.set_printoptions(precision=2)
+print(np.concatenate((result.reshape(len(result),1), y_test.reshape(len(y_test),1)),1))
