@@ -46,6 +46,8 @@ pickle.dump(regressor, open(filename, 'wb'))
 # some time later...
  
 # load the model from disk
+# Lembre de importar todas as bibliotecas necessárias e importar os dados necessários
+# para aplicar o modelo novamente e expor os resultados
 loaded_model = pickle.load(open(filename, 'rb'))
 result = loaded_model.predict(X_test)
 np.set_printoptions(precision=2)
