@@ -53,3 +53,14 @@ result = loaded_model.predict(X_test)
 np.set_printoptions(precision=2)
 print("RESULTADO DO MODELO; DADOS DE TESTE")
 print(np.concatenate((result.reshape(len(result),1), y_test.reshape(len(y_test),1)),1))
+
+# Vamos plotar os dados de resultado e teste em um gráfico para comparar
+#plot simples, sem linha
+plt.figure(figsize=(5,2),dpi=100)
+plt.scatter(X_test,result)
+plt.scatter(X_test,y_test)
+plt.title('Comparativo entre previsão e dados de teste')
+plt.xlabel('X-test')
+plt.ylabel('result/y_test')
+plt.legend(['Previsão','Dados teste'])
+plt.show()
