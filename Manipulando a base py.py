@@ -28,7 +28,7 @@ print(result.summary())
 
 dataset['Poucos_Filhos']=dataset['Filhos']
 dataset.loc[dataset.Poucos_Filhos <3, 'Poucos_Filhos'] = 1
-dataset.loc[dataset.Muitos_Filhos >= 3, 'Muitos_Filhos'] = 0
+dataset.loc[dataset.Poucos_Filhos >= 3, 'Poucos_Filhos'] = 0
 dataset['Três_Filhos']=dataset['Filhos']
 dataset.loc[dataset.Três_Filhos ==3, 'Três_Filhos'] = 1
 dataset.loc[dataset.Três_Filhos !=3, 'Três_Filhos'] = 0
