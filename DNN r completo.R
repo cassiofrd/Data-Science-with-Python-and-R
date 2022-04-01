@@ -1,7 +1,7 @@
 # vamos fazer uma rede neural com o R
-# primeiro vamos determinar o diretÛrio de trabalho
+# primeiro vamos determinar o diret√≥rio de trabalho
 
-setwd("C:/Users/FREITAC6/OneDrive - BASF/Desktop/neural network R")
+setwd("C:/Desktop/neural network R")
 getwd()
 
 # importando os pacotes
@@ -9,8 +9,8 @@ getwd()
 library(readxl)
 library(openxlsx)
 library(keras)
-####### ATEN«√O: SE VOC  AINDA N√O INSTALOU O TENSORFLOW PELA PRIMEIRA VEZ, TIRE O # DA LINHA 14 E EXECUTE
-# CASO CONTR¡RIO N√O PRECISA RODAR NOVEMENTE. O TENSORFLOW N√O … INSTALADO CORRETAMENTE PELO COMANDO install.packages()
+####### ATEN√á√ÉO: SE VOC√ä AINDA N√ÉO INSTALOU O TENSORFLOW PELA PRIMEIRA VEZ, TIRE O # DA LINHA 14 E EXECUTE
+# CASO CONTR√ÅRIO N√ÉO PRECISA RODAR NOVEMENTE. O TENSORFLOW N√ÉO √â INSTALADO CORRETAMENTE PELO COMANDO install.packages()
 #tensorflow::install_tensorflow()
 library(mlbench)
 library(dplyr)
@@ -19,39 +19,39 @@ library(neuralnet)
 
 # agora vamos importar os dados que iremos utilizar
 
-data <- read.xlsx("C:/Users/FREITAC6/OneDrive - BASF/Desktop/neural network R/Base Teste.xlsx", detectDates = TRUE)
+data <- read.xlsx("C:/Desktop/neural network R/Base Teste.xlsx", detectDates = TRUE)
 str(data)
 
-# vamos normalizar as vari·veis que n„o variam entre 0 e 1
-# vamos criar a funÁ„o de normalizaÁ„o e aplicar ‡s vari·veis que n„o est„o normalizadas
+# vamos normalizar as vari√°veis que n√£o variam entre 0 e 1
+# vamos criar a fun√ß√£o de normaliza√ß√£o e aplicar √†s vari√°veis que n√£o est√£o normalizadas
 
 normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
 
-# antes de aplicar a funÁ„o vamos salvar os valores de m·ximo e mÌnimo da nossa vari·vel dependente para reverter
-# esse processo de normalizaÁ„o apÛs a previs„o
+# antes de aplicar a fun√ß√£o vamos salvar os valores de m√°ximo e m√≠nimo da nossa vari√°vel dependente para reverter
+# esse processo de normaliza√ß√£o ap√≥s a previs√£o
 
-maxdep <- max(data["BASF.Tenure"])
-mindep <- min(data["BASF.Tenure"])
+maxdep <- max(data["Tenure"])
+mindep <- min(data["Tenure"])
 data$Strata <- normalize(data$Strata)
 data$Male <- normalize(data$Male)
 data$Age <- normalize(data$Age)
 data$Ordem.age.range <- normalize(data$Ordem.age.range)
 data$Lider <- normalize(data$Lider)
 data$Ordem.Tenure <- normalize(data$Ordem.Tenure)
-data$BASF.Tenure <- normalize(data$BASF.Tenure)
+data$Tenure <- normalize(data$Tenure)
 
-# antes de comeÁar, devemos garantir que todas as vari·veis da base s„o numÈricas
-# com o comando abaixo vamos converter vari·veis categÛricas em numÈricas
-# como se sabe, uma rede neural sÛ aceita valores numÈricos
+# antes de come√ßar, devemos garantir que todas as vari√°veis da base s√£o num√©ricas
+# com o comando abaixo vamos converter vari√°veis categ√≥ricas em num√©ricas
+# como se sabe, uma rede neural s√≥ aceita valores num√©ricos
 
 data %<>% mutate_if(is.factor, as.numeric)
 
 # agora vamos separar a nossa base de dados entre base de treino e base de teste
 
-vardep <- data["BASF.Tenure"] #selecionar qual È a vari·vel dependente
-varindep <- data[,c(1,2,3,4,5,6)] #selecionar quais ser„o nossas vari·veis independentes
+vardep <- data["Tenure"] #selecionar qual √© a vari√°vel dependente
+varindep <- data[,c(1,2,3,4,5,6)] #selecionar quais ser√£o nossas vari√°veis independentes
 splitdep1<- sample(c(rep(0, 0.7 * nrow(vardep)), rep(1, 0.3 * nrow(vardep)))) #vamos separar a vardep entre treino e teste
 splitindep1<- sample(c(rep(0, 0.7 * nrow(varindep)), rep(1, 0.3 * nrow(varindep)))) #vamos separar a base independente entre treino e teste
 
@@ -62,7 +62,7 @@ testtarget <- vardep[splitindep1== 1, ]
 trainingtarget <- as.numeric(trainingtarget)
 testtarget <- as.numeric(testtarget)
 
-# em redes neurais, precisamos normalizar as vari·veis numÈricas para melhorar a
+# em redes neurais, precisamos normalizar as vari√°veis num√©ricas para melhorar a
 # capacidade preditiva do modelo
 
 m <- colMeans(training)
@@ -71,10 +71,10 @@ training <- scale(training, center = m, scale = s)
 test <- scale(test, center = m, scale = s)
 
 # agora vamos criar o nosso modelo
-# como visto abaixo temos 6 neurÙneos (um para cada vari·vel independente)
-# na camada input, uma ˙nica "hiden layer" com 3 neurÙneos (utilizando a fÛrmula da raiz quadrada
-# da multiplicaÁ„o entre o n˙mero de nerÙnios do input e no outpub: raiz de 7, que eu arredondei
-# para 3) e na camada output apenas 1 neurÙneo
+# como visto abaixo temos 6 neur√¥neos (um para cada vari√°vel independente)
+# na camada input, uma √∫nica "hiden layer" com 3 neur√¥neos (utilizando a f√≥rmula da raiz quadrada
+# da multiplica√ß√£o entre o n√∫mero de ner√¥nios do input e no outpub: raiz de 7, que eu arredondei
+# para 3) e na camada output apenas 1 neur√¥neo
 tensorflow::tf_config()
 model <- keras_model_sequential()
 model %>%
@@ -97,7 +97,7 @@ mymodel <- model %>%
       validation_split = 0.2)
 
 
-# vamos agora fazer algumas mudanÁas no modelo e ver como ficou sua capacidade preditiva
+# vamos agora fazer algumas mudan√ßas no modelo e ver como ficou sua capacidade preditiva
 
 model <- keras_model_sequential()
 model %>%
@@ -111,31 +111,31 @@ model %>%
 
 model %>% compile(loss = 'mse',
                   optimizer = 'rmsprop', 
-                  metrics = 'mae') # lembrando que accuracia sÛ faz sentido se prevemos dummies, vari·veis contÌnuas numca s„o previstas na exatid„o, atÈ na casa decimal
-                                   # o mae nada mais È que o erro absoluto mÈdio
-                                   # loss se refere ‡ base de treino, val_loss È a mesma estatÌtica para a base de teste, quando o valor estabiliza j· podemos parar de treinar o modelo
-                                   # mae se refere ‡ base de treino, val_mae È a mesma estatÌtica para a base de teste, quando o valor estabiliza j· podemos parar de treinar o modelo
+                  metrics = 'mae') # lembrando que accuracia s√≥ faz sentido se prevemos dummies, vari√°veis cont√≠nuas numca s√£o previstas na exatid√£o, at√© na casa decimal
+                                   # o mae nada mais √© que o erro absoluto m√©dio
+                                   # loss se refere √† base de treino, val_loss √© a mesma estat√≠tica para a base de teste, quando o valor estabiliza j√° podemos parar de treinar o modelo
+                                   # mae se refere √† base de treino, val_mae √© a mesma estat√≠tica para a base de teste, quando o valor estabiliza j√° podemos parar de treinar o modelo
 # agora vamos treinar o nosso modelo
 
 mymodel <- model %>%          
   fit(training,trainingtarget,
       epochs = 200,           # vai passar por toda a base do modelo um total de 200 vezes
-      batch_size = 32,        # batck_size È o n˙mero de observaÁıes que o modelo usa para promover o treino da base, deixa esse valor, para valores maiores demora muito para convergir
-      validation_split = 0.2) # validation_split È a porcentagem da base (nesse caso, 20%) que È utilizada para teste, nada mais È que a parcela que aparece no gr·fico acima como val_
+      batch_size = 32,        # batck_size √© o n√∫mero de observa√ß√µes que o modelo usa para promover o treino da base, deixa esse valor, para valores maiores demora muito para convergir
+      validation_split = 0.2) # validation_split √© a porcentagem da base (nesse caso, 20%) que √© utilizada para teste, nada mais √© que a parcela que aparece no gr√°fico acima como val_
 
-# vamos avaliar o nosso modelo, a primeira linha nos d· os valores de loss e mae para a nossa base teste
+# vamos avaliar o nosso modelo, a primeira linha nos d√° os valores de loss e mae para a nossa base teste
 
 model %>% evaluate(test, testtarget)
 
-# a prÛxima linha obtÈm os valores previstos
+# a pr√≥xima linha obt√©m os valores previstos
 
 pred <- model %>% predict(test)
 
-# a ˙ltima linha nos d· o erro quadr·tico mÈdio, com base nos valores observados e valores previstos
+# a √∫ltima linha nos d√° o erro quadr√°tico m√©dio, com base nos valores observados e valores previstos
 
 mean((testtarget-pred)^2) 
 
-# agora, para ter os valores previstos corretamente, vamos reverter o processo de normalizaÁ„o
+# agora, para ter os valores previstos corretamente, vamos reverter o processo de normaliza√ß√£o
 
 previsao <- pred*(maxdep-mindep)+mindep
 previsao
